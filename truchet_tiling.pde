@@ -2,30 +2,40 @@ float i, j;
 float step = 60;
 float arcRadius = step;
 float arcPos = arcRadius / 2;
-float margin = 100;
+float margin = 80;
 
 void setup() {
-  size(800, 800);
+  size(1000, 1000);
   pixelDensity(2);
-  stroke(255);
-  strokeWeight(5);
   noLoop();
 }
 
 void draw() {
   background(255);
 
-  fill(0);
-  rect(margin, margin, width - 2 * margin, height - 2 * margin);
-  
-  
-  for (i = margin + step / 2; i < width - margin; i += step) {
-    for (j = margin + step / 2; j < height - margin; j += step) {
+  float gridWidth = width - 2 * margin;
+  float gridHeight = height - 2 * margin;
+
+  fill(255);
+  noStroke();
+  rect(margin, margin, gridWidth, gridHeight);
+
+  float cols = floor(gridWidth / step);
+  float rows = floor(gridHeight / step);
+
+  for (i = 0; i < cols; i++) {
+    for (j = 0; j < rows; j++) {
       push();
 
-      translate(i, j);
+      float x = margin + i * step + arcPos;
+      float y = margin + j * step + arcPos;
+
+      translate(x, y);
 
       noFill();
+
+      stroke(0);
+      strokeWeight(8);
       float r = random(1);
       if (r < 0.5) {
         arc(-arcPos, -arcPos, arcRadius, arcRadius, 0, HALF_PI);
